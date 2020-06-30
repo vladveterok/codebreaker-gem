@@ -36,8 +36,6 @@ RSpec.describe Codebreaker do
       game.start_new_game
     end
 
-    # specify { expect(game.very_secret_code.length).to be(4) }
-
     it 'generates a four-number code' do
       expect(game.very_secret_code.length).to be(4)
     end
@@ -49,5 +47,67 @@ RSpec.describe Codebreaker do
     it 'generates hints equal to a very secret code' do
       expect(game.very_secret_code).to include(game.show_hint)
     end
+  end
+
+  context 'when playing the game' do
+    before do
+      game.start_new_game
+    end
+
+    context 'when player makes a valid guess' do
+      before do
+        game.guess('1234')
+      end
+
+      it 'substracts number of attempts' do
+        expect(game.attempts).to be(14)
+      end
+
+      it 'does not win the game' do
+        expect(game.won?).to be false
+      end
+    end
+
+    context 'when player makes an invalid guess' do
+      it 'raises InvalidGuessError when guess < 4 digits' do
+        expect { game.guess('123') }.to raise_error(Codebreaker::Game::InvalidGuessError)
+      end
+
+      it 'raises InvalidGuessError when guess > 4 digits' do
+        expect { game.guess('12345') }.to raise_error(Codebreaker::Game::InvalidGuessError)
+      end
+
+      it 'raises InvalidGuessError when guess is not a digit of 1-6' do
+        expect { game.guess('foo0') }.to raise_error(Codebreaker::Game::InvalidGuessError)
+      end
+    end
+
+    context 'when player make a right guess' do
+      before do
+        game.guess(game.very_secret_code.join)
+      end
+
+      it 'shows 0,0,0,0 in clues' do
+        expect(game.clues).to all(be 0)
+      end
+
+      it 'wins the game' do
+        expect(game.won?).to be true
+      end
+    end
+
+    context 'when attempts are left' do
+      before do
+        15.times { game.guess('1111') }
+      end
+
+      it 'loses the game' do
+        expect(game.lost?).to be true
+      end
+    end
+  end
+
+  context 'when player wins' do
+    skip
   end
 end
