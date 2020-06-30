@@ -2,6 +2,7 @@
 
 # top-level descriptive comment here
 module Codebreaker
+  # top-level descriptive comment here
   module FileLoader
     LIB_FILE_NAME = 'lib.yaml'
 

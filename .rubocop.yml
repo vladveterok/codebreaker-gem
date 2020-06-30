@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.7
   NewCops: enable
@@ -7,5 +9,8 @@ AllCops:
       - 'db/**/*'
       - '.git/**/*'
       # - 'Gemfile'
-      - 'index.rb'
+      - 'console/index.rb'
       - '_test_folder/*'
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# Needs a class documentation
+# Needs a module documentation
 module Codebreaker
+  # Needs a class documentation
   class User
     attr_reader :name
     attr_reader :difficulty
