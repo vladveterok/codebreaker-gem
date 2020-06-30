@@ -1,4 +1,6 @@
-require "codebreaker/version"
+# frozen_string_literal: true
+
+require 'codebreaker/version'
 
 module Codebreaker
   class Error < StandardError; end
