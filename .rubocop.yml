@@ -1,0 +1,11 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Exclude:
+      - 'db/**/*'
+      - '.git/**/*'
+      # - 'Gemfile'
+      - 'index.rb'
+      - '_test_folder/*'

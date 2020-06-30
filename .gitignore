@@ -7,5 +7,10 @@
 /spec/reports/
 /tmp/
 
+/_test_folder
+*txt
+*yaml
+.DS_Store
+
 # rspec failure tracking
 .rspec_status
