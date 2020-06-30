@@ -5,7 +5,18 @@ RSpec.describe Codebreaker do
     expect(Codebreaker::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  let(:game) { Codebreaker::Game.new(difficulty: 'easy', user_name: 'Foobar') }
+
+  it 'creates a new game' do
+    expect(game).to be_an_instance_of(Codebreaker::Game)
+  end
+
+  it 'creates a game of particular difficulty' do
+    expect(game.difficulty).to be('easy')
+  end
+
+  it 'creates a new user' do
+    expect(game.user).to be_an_instance_of(Codebreaker::User)
+    expect(game.user.name).to be('Foobar')
   end
 end
