@@ -9,6 +9,7 @@
 *.gem
 
 /_test_folder
+/console
 *txt
 *yaml
 .DS_Store
