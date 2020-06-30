@@ -7,16 +7,20 @@ RSpec.describe Codebreaker do
 
   let(:game) { Codebreaker::Game.new(difficulty: 'easy', user_name: 'Foobar') }
 
-  it 'creates a new game' do
-    expect(game).to be_an_instance_of(Codebreaker::Game)
+  context 'when creating a new game' do
+    it 'creates a new game' do
+      expect(game).to be_an_instance_of(Codebreaker::Game)
+    end
   end
 
-  it 'creates a game of particular difficulty' do
-    expect(game.difficulty).to be('easy')
-  end
+  context 'when new game is created' do
+    it 'creates a game of particular difficulty' do
+      expect(game.difficulty).to be('easy')
+    end
 
-  it 'creates a new user' do
-    expect(game.user).to be_an_instance_of(Codebreaker::User)
-    expect(game.user.name).to be('Foobar')
+    it 'creates a new user' do
+      expect(game.user).to be_an_instance_of(Codebreaker::User)
+      expect(game.user.name).to be('Foobar')
+    end
   end
 end
