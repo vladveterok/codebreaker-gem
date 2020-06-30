@@ -60,7 +60,7 @@ PLATFORMS
 
 DEPENDENCIES
   codebreaker!
-  fasterer
+  fasterer (~> 0.8.3)
   lefthook (~> 0.7.2)
   rake (~> 12.0)
   rspec (~> 3.2)

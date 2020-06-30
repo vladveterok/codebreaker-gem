@@ -27,5 +27,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_development_dependency 'fasterer', '~> 0.8.3'
+  spec.add_development_dependency 'lefthook', '~> 0.7.2'
+  spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rspec', '~> 3.2'
+  spec.add_development_dependency 'rubocop', '~> 0.86.0'
+  spec.add_development_dependency 'simplecov', '~> 0.18.5'
 end
