@@ -37,10 +37,11 @@ module Codebreaker
     end
 
     def guess(args)
-      validate_guess(args)
+      guess = args.each_char.map(&:to_i)
+      validate_guess(guess)
       clear_clues
       secret_code_clone = @very_secret_code.clone
-      check_guess(args, secret_code_clone)
+      check_guess(guess, secret_code_clone)
 
       count_attempts # rename to count_attempts
     end
