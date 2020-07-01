@@ -106,8 +106,4 @@ RSpec.describe Codebreaker::Game do
       end
     end
   end
-
-  context 'when player wins' do
-    skip
-  end
 end

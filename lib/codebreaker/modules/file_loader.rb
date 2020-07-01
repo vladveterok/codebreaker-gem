@@ -18,9 +18,9 @@ module Codebreaker
     # class method load
     module ClassMethods
       def load
-        return unless File.exist? DB_FILE_PATH
+        return unless File.exist? FILE_PATH
 
-        File.open(DB_FILE_PATH, 'r') do |file|
+        File.open(FILE_PATH, 'r') do |file|
           YAML.load_stream(file)
         end
       end

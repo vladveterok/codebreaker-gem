@@ -3,11 +3,11 @@
 require 'simplecov'
 SimpleCov.start
 
+# Substitutes name for a db file 'results.yml' while testing
+ENV['DB_FILE'] = 'results_test.yml'
+
 require 'bundler/setup'
 require 'codebreaker'
-
-# remove after every test in config -- after.each (after.all) instruction. path to remove DB_PATH
-ENV['DB_FILE'] = 'results_test.yml'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -18,5 +18,9 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.after(:suite) do # or :each or :all
+    FileUtils.rm_rf(Dir[Codebreaker::FileLoader::DB_PATH.to_s])
   end
 end
