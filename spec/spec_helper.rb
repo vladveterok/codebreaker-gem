@@ -6,7 +6,8 @@ SimpleCov.start
 require 'bundler/setup'
 require 'codebreaker'
 
-# Set up ENV variable for DB
+# remove after every test in config -- after.each (after.all) instruction. path to remove DB_PATH
+ENV['DB_FILE'] = 'results_test.yml'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
