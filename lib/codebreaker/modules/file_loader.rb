@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pathname'
-
 # top-level descriptive comment here
 module Codebreaker
   # top-level descriptive comment here
