@@ -6,6 +6,8 @@ SimpleCov.start
 require 'bundler/setup'
 require 'codebreaker'
 
+# Set up ENV variable for DB
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
