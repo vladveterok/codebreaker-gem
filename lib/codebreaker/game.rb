@@ -3,6 +3,8 @@
 module Codebreaker
   # Needs a class documentation
   class Game
+    class InvalidGuessError < StandardError; end
+
     include FileLoader
 
     attr_reader :clues
@@ -25,9 +27,9 @@ module Codebreaker
       validate_difficulty(difficulty)
 
       @user = User.new(name: user_name)
-      @difficulty = difficulty # DIFFICULTIES.slice(difficulty.to_sym)
-      @attempts = DIFFICULTIES[difficulty.to_sym][:attempts] # @difficulty.values[0][:attempts]
-      @number_of_hints = DIFFICULTIES[difficulty.to_sym][:hints] # @difficulty.values[0][:hints]
+      @difficulty = difficulty
+      @attempts = DIFFICULTIES[difficulty.to_sym][:attempts]
+      @number_of_hints = DIFFICULTIES[difficulty.to_sym][:hints]
 
       @very_secret_code = []
       @hints = []
@@ -110,8 +112,8 @@ module Codebreaker
     end
 
     def validate_guess(guess)
-      raise ArgumentError, 'Guess should be of four digits' unless guess.compact.length == 4
-      raise ArgumentError, 'Guess should be of digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
+      raise InvalidGuessError, 'Expect 4 digits' unless guess.compact.length == 4
+      raise InvalidGuessError, 'Expect 4 digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
     end
   end
 end

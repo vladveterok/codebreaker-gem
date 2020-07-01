@@ -9,7 +9,7 @@ AllCops:
       - 'db/**/*'
       - '.git/**/*'
       # - 'Gemfile'
-      - 'console/index.rb'
+      - 'console/*'
       - '_test_folder/*'
 
 Metrics/BlockLength:

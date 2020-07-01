@@ -6,6 +6,8 @@ module Codebreaker
   module FileLoader
     DB_FILE_NAME = 'results.yaml'
     DB_FILE_PATH = "./db/#{DB_FILE_NAME}"
+    # ENV[] = "./temp/#{DB_FILE_NAME}" -- need to detect where app is placed:
+    # ROOT_PATH = Pathname(__FILE__).parent.dirname.realpath + "/db/results.yaml"
 
     def self.included(base)
       base.extend(ClassMethods)

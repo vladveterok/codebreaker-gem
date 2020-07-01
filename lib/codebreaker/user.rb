@@ -6,11 +6,6 @@ module Codebreaker
   # It holds a name and validates it.
   class User
     attr_reader :name
-    attr_reader :difficulty
-    attr_reader :attempts
-    attr_reader :attempts_used
-    attr_reader :number_of_hints
-    attr_reader :hints_used
 
     def initialize(name:)
       validate(name: name)
