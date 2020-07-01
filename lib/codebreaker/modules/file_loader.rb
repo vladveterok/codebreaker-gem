@@ -4,7 +4,8 @@
 module Codebreaker
   # top-level descriptive comment here
   module FileLoader
-    LIB_FILE_NAME = 'lib.yaml'
+    DB_FILE_NAME = 'results.yaml'
+    DB_FILE_PATH = "./db/#{DB_FILE_NAME}"
 
     def self.included(base)
       base.extend(ClassMethods)
@@ -13,16 +14,17 @@ module Codebreaker
     # class method load
     module ClassMethods
       def load
-        return unless File.exist? "db/#{LIB_FILE_NAME}"
+        return unless File.exist? DB_FILE_PATH
 
-        File.open("./db/#{LIB_FILE_NAME}", 'r') do |file|
+        File.open(DB_FILE_PATH, 'r') do |file|
           YAML.load_stream(file)
         end
       end
     end
 
     def save(user)
-      File.open("./db/#{LIB_FILE_NAME}", 'a') { |file| file.write(user.to_yaml) }
+      Dir.mkdir('./db') unless Dir.exist?('./db')
+      File.open(DB_FILE_PATH, 'a') { |file| file.write(user.to_yaml) }
     end
   end
 end
