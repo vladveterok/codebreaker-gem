@@ -8,6 +8,8 @@
 /tmp/
 *.gem
 
+/lib/tmp
+/lib/codebreaker/db
 /_test_folder
 /console
 *txt
