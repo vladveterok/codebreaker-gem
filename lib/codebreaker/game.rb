@@ -3,8 +3,6 @@
 module Codebreaker
   # Needs a class documentation
   class Game
-    class InvalidGuessError < StandardError; end
-
     include FileLoader
 
     attr_reader :clues
@@ -12,6 +10,8 @@ module Codebreaker
     attr_reader :difficulty
     attr_reader :attempts
     attr_reader :number_of_hints
+    attr_reader :attempts_used
+    attr_reader :hints_used
     attr_reader :very_secret_code # for testing porpuse
 
     DIFFICULTIES = {
@@ -19,18 +19,21 @@ module Codebreaker
       medium: { attempts: 10, hints: 1 },
       hell: { attempts: 5, hints: 1 }
     }.freeze
+    CODE_LENGTH = 4
 
     def initialize(difficulty:, user_name:)
-      raise ArgumentError, "No such difficulty as #{difficulty}" unless DIFFICULTIES.keys.any?(difficulty.to_sym)
+      validate_difficulty(difficulty)
+
+      @user = User.new(name: user_name)
+      @difficulty = difficulty # DIFFICULTIES.slice(difficulty.to_sym)
+      @attempts = DIFFICULTIES[difficulty.to_sym][:attempts] # @difficulty.values[0][:attempts]
+      @number_of_hints = DIFFICULTIES[difficulty.to_sym][:hints] # @difficulty.values[0][:hints]
 
       @very_secret_code = []
       @hints = []
       @clues = Array.new(4)
-      @attempts = DIFFICULTIES[difficulty.to_sym][:attempts]
-      @number_of_hints = DIFFICULTIES[difficulty.to_sym][:hints]
-
-      @difficulty = difficulty
-      @user = User.new(name: user_name, game: self)
+      @attempts_used = 0
+      @hints_used = 0
     end
 
     def start_new_game
@@ -45,13 +48,13 @@ module Codebreaker
       secret_code_clone = @very_secret_code.clone
       check_guess(guess, secret_code_clone)
 
-      count_attempts # rename to count_attempts
+      count_attempts
     end
 
     def show_hint
-      return "You've used all your hints, sorry, mate" if @number_of_hints.zero?
+      return if @hints_used >= number_of_hints
 
-      @number_of_hints -= 1
+      @hints_used += 1
       @hints.shuffle!.pop
     end
 
@@ -60,23 +63,17 @@ module Codebreaker
     end
 
     def lost?
-      @attempts.zero?
+      @attempts_used >= attempts
     end
 
     def save_game
-      @user.save_results
-      save(@user)
+      save(self)
     end
 
     private
 
-    def validate_guess(guess)
-      raise InvalidGuessError, 'Expect 4 digits' unless guess.compact.length == 4
-      raise InvalidGuessError, 'Expect digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
-    end
-
     def generate_random_code
-      @very_secret_code = 4.times.map { rand(1..6) }.shuffle! # [2, 2, 3, 6]
+      @very_secret_code = CODE_LENGTH.times.map { rand(1..6) }.shuffle! # [2, 2, 3, 6]
     end
 
     def check_guess(guess, secret_code_clone)
@@ -105,7 +102,16 @@ module Codebreaker
     end
 
     def count_attempts
-      @attempts -= 1
+      @attempts_used += 1
+    end
+
+    def validate_difficulty(difficulty)
+      raise ArgumentError, "No such difficulty as #{difficulty}" unless DIFFICULTIES.keys.any?(difficulty.to_sym)
+    end
+
+    def validate_guess(guess)
+      raise ArgumentError, 'Guess should be of four digits' unless guess.compact.length == 4
+      raise ArgumentError, 'Guess should be of digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
     end
   end
 end
