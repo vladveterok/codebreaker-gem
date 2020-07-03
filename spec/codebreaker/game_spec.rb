@@ -87,8 +87,8 @@ RSpec.describe Codebreaker::Game do
         game.guess(game.very_secret_code.join)
       end
 
-      it 'shows 0,0,0,0 in clues' do
-        expect(game.clues).to all(be 0)
+      it 'shows 1,1,1,1 in clues' do
+        expect(game.clues).to all(be 1)
       end
 
       it 'wins the game' do
