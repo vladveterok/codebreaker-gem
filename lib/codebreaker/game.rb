@@ -24,10 +24,10 @@ module Codebreaker
     }.freeze
     CODE_LENGTH = 4
 
-    def initialize(difficulty:, user_name:)
+    def initialize(difficulty:, user:)
       validate_difficulty(difficulty, DIFFICULTIES)
 
-      @user = User.new(name: user_name)
+      @user = user
       @difficulty = difficulty
       @attempts = DIFFICULTIES[difficulty.to_sym][:attempts]
       @number_of_hints = DIFFICULTIES[difficulty.to_sym][:hints]

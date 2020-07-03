@@ -26,9 +26,9 @@ module Codebreaker
       end
     end
 
-    def save(user)
+    def save(object)
       Dir.mkdir(DB_PATH) unless Dir.exist?(DB_PATH)
-      File.open(FILE_PATH, 'a') { |file| file.write(user.to_yaml) }
+      File.open(FILE_PATH, 'a') { |file| file.write(object.to_yaml) }
     end
   end
 end
