@@ -70,15 +70,15 @@ RSpec.describe Codebreaker::Game do
 
     context 'when player makes an invalid guess' do
       it 'raises InvalidGuessError when guess < 4 digits' do
-        expect { game.guess('123') }.to raise_error(described_class::InvalidGuessError)
+        expect { game.guess('123') }.to raise_error(described_class::InvalidGuess)
       end
 
       it 'raises InvalidGuessError when guess > 4 digits' do
-        expect { game.guess('12345') }.to raise_error(described_class::InvalidGuessError)
+        expect { game.guess('12345') }.to raise_error(described_class::InvalidGuess)
       end
 
       it 'raises InvalidGuessError when guess is not a digit of 1-6' do
-        expect { game.guess('foo0') }.to raise_error(described_class::InvalidGuessError)
+        expect { game.guess('foo0') }.to raise_error(described_class::InvalidGuess)
       end
     end
 
