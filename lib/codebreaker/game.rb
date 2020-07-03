@@ -34,8 +34,6 @@ module Codebreaker
 
       @very_secret_code = []
       @hints = []
-      @clues = []
-      # CRAFTING MATCHER! @clues = Array.new(4)
       @attempts_used = 0
       @hints_used = 0
     end
@@ -45,14 +43,12 @@ module Codebreaker
       @hints = @very_secret_code.clone
       @attempts_used = 0
       @hints_used = 0
-      @clues = []
+      @clues = Array.new(4)
     end
 
     def guess(args)
       guess = args.each_char.map(&:to_i)
       validate_guess(guess, CODE_LENGTH)
-      # CRAFTING MATCHER! clear_clues
-      # CRAFTING MATCHER! secret_code_clone = @very_secret_code.clone
       check_guess(guess, very_secret_code)
 
       count_attempts
@@ -88,16 +84,6 @@ module Codebreaker
       matchmaker.match
       @clues = matchmaker.clues
     end
-
-    # def add_to_clues!(clue)
-    #  @clues[@clues.find_index(nil)] = clue
-    #  @clues << clue
-    # end
-
-    # CRAFTING MATCHER!
-    # def clear_clues
-    #  @clues = [nil, nil, nil, nil]
-    # end
 
     def count_attempts
       @attempts_used += 1
