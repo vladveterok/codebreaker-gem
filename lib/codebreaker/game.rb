@@ -55,7 +55,7 @@ module Codebreaker
     end
 
     def show_hint
-      return if @hints_used >= number_of_hints
+      validate_hints(hints_used, number_of_hints)
 
       @hints_used += 1
       @hints.shuffle!.pop
