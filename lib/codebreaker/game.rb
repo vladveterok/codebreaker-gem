@@ -34,7 +34,8 @@ module Codebreaker
 
       @very_secret_code = []
       @hints = []
-      @clues = Array.new(4)
+      @clues = []
+      # CRAFTING MATCHER! @clues = Array.new(4)
       @attempts_used = 0
       @hints_used = 0
     end
@@ -47,9 +48,9 @@ module Codebreaker
     def guess(args)
       guess = args.each_char.map(&:to_i)
       validate_guess(guess, CODE_LENGTH)
-      clear_clues
-      secret_code_clone = @very_secret_code.clone
-      check_guess(guess, secret_code_clone)
+      # CRAFTING MATCHER! clear_clues
+      # CRAFTING MATCHER! secret_code_clone = @very_secret_code.clone
+      check_guess(guess, very_secret_code)
 
       count_attempts
     end
@@ -79,42 +80,24 @@ module Codebreaker
       @very_secret_code = CODE_LENGTH.times.map { rand(1..6) }.shuffle! # [2, 2, 3, 6]
     end
 
-    def check_guess(guess, secret_code_clone)
-      guess.length.times do |i|
-        next unless secret_code_clone[i] == guess[i]
-
-        add_to_clues!(0)
-        secret_code_clone[i] = guess[i] = nil
-      end
-
-      guess.compact.each do |num|
-        next unless secret_code_clone.any?(num)
-
-        add_to_clues!(1)
-        secret_code_clone[secret_code_clone.index(num)] = nil
-      end
+    def check_guess(guess, secret_code)
+      matchmaker = Codebreaker::Matchmaker.new(guess, secret_code)
+      matchmaker.match
+      @clues = matchmaker.clues
     end
 
-    def add_to_clues!(clue)
-      @clues[@clues.find_index(nil)] = clue
-      # @clues << clue
-    end
+    # def add_to_clues!(clue)
+    #  @clues[@clues.find_index(nil)] = clue
+    #  @clues << clue
+    # end
 
-    def clear_clues
-      @clues = [nil, nil, nil, nil]
-    end
+    # CRAFTING MATCHER!
+    # def clear_clues
+    #  @clues = [nil, nil, nil, nil]
+    # end
 
     def count_attempts
       @attempts_used += 1
     end
-
-    # def validate_difficulty(difficulty)
-    #  raise ArgumentError, "No such difficulty as #{difficulty}" unless DIFFICULTIES.keys.any?(difficulty.to_sym)
-    # end
-
-    # def validate_guess(guess)
-    #  raise InvalidGuessError, 'Expect 4 digits' unless guess.compact.length == 4
-    #  raise InvalidGuessError, 'Expect 4 digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
-    # end
   end
 end

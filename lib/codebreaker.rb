@@ -7,6 +7,7 @@ require 'pathname'
 require_relative 'codebreaker/modules/validation'
 require_relative 'codebreaker/modules/file_loader'
 require_relative 'codebreaker/game'
+require_relative 'codebreaker/matchmaker'
 require_relative 'codebreaker/user'
 
 module Codebreaker
