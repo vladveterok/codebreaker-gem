@@ -43,6 +43,9 @@ module Codebreaker
     def start_new_game
       generate_random_code
       @hints = @very_secret_code.clone
+      @attempts_used = 0
+      @hints_used = 0
+      @clues = []
     end
 
     def guess(args)
@@ -63,7 +66,7 @@ module Codebreaker
     end
 
     def won?
-      @clues.all?(0)
+      @clues.all?(1)
     end
 
     def lost?
