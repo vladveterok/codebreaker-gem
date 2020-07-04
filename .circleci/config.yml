@@ -25,12 +25,21 @@ commands:
           key: *bundle_cache_full
           paths:
             - vendor/bundle
+  run_linters:
+    description: command to start linters
+    steps:
+      - run:
+          name: rubocop
+          command: bundle exec rubocop
+          name: fasterer
+          command: bundle exec fasterer
 
 jobs:
   lintering:
     executor: default
     steps:
       - defaults
+      - run_linters
 
 workflows:
   version: 2.1
