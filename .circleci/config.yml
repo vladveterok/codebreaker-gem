@@ -9,7 +9,7 @@ executors:
       - image: circleci/ruby:2.7.0
 
 caches:
-  - &bundle_cache_v1 v2-repo-{{ checksum 'Gemfile.lock' }}
+  - &bundle_cache_full v2-repo-{{ checksum 'Gemfile.lock' }}
   - &bundle_cache v2-repo-
 
 commands:
@@ -18,11 +18,11 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - *bundle_cache_v1
+            - *bundle_cache_full
             - *bundle_cache
       - run: bundle install --path vendor/bundle
       - save_cache:
-          key: *bundle_cache
+          key: *bundle_cache_full
           paths:
             - vendor/bundle
 
@@ -36,3 +36,4 @@ workflows:
   version: 2.1
   build:
     jobs:
+      lintering
