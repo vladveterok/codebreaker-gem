@@ -36,4 +36,4 @@ workflows:
   version: 2.1
   build:
     jobs:
-      lintering
+      - lintering
