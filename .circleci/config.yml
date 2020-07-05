@@ -63,5 +63,5 @@ workflows:
     jobs:
       - lintering
       - run_specs:
-        requires:
-          - lintering
+          requires:
+            - lintering
