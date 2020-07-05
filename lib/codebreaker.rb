@@ -1,14 +1,8 @@
 # frozen_string_literal: true
 
 # uncomment next line and check all the requirements!
-# require 'codebreaker/version'
-require 'yaml/store'
-require 'pathname'
-require_relative 'codebreaker/modules/validation'
-require_relative 'codebreaker/modules/file_loader'
-require_relative 'codebreaker/game'
-require_relative 'codebreaker/matchmaker'
-require_relative 'codebreaker/user'
+
+require './bootstrap'
 
 module Codebreaker
   class Error < StandardError; end
