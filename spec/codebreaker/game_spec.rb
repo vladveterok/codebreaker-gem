@@ -1,19 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe Codebreaker::Game do
-  subject(:game) { described_class.new(difficulty: 'easy', user_name: 'Foobar') }
+  subject(:game) { described_class.new(difficulty: 'easy', user: user) }
 
-  it 'has a version number' do
-    expect(Codebreaker::VERSION).not_to be nil
-  end
+  let(:user) { instance_double('User') }
 
   context 'when creating a new game' do
     it 'creates a new game' do
       expect(game).to be_an_instance_of(described_class)
-    end
-
-    it 'creates a new user' do
-      expect(game.user).to be_an_instance_of(Codebreaker::User)
     end
   end
 

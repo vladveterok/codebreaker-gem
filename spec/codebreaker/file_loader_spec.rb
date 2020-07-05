@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Codebreaker::FileLoader do
-  subject(:game) { Codebreaker::Game.new(difficulty: 'easy', user_name: 'TestUser') }
+  subject(:game) { Codebreaker::Game.new(difficulty: 'easy', user: user) }
+
+  let(:user) { instance_double('User') }
 
   context 'when saving and loading file' do
     before do
