@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Codebreaker
-  # Needs a class documentation
+  # Takes players guess and secret code and returnes data on match as 'clues'
   class Matchmaker
     attr_reader :clues
 
@@ -27,7 +27,6 @@ module Codebreaker
 
     def write_to_clues(clue)
       @clues[@clues.find_index(nil)] = clue
-      # @clues << clue
     end
   end
 end

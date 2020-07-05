@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# top-level descriptive comment here
+# Codebreaker namespace module
 module Codebreaker
-  # top-level descriptive comment here
+  # Defines game errors and handles validations for the game
   module Validation
     class GameError < StandardError; end
     class NoSavedData < GameError; end

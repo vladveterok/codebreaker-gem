@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
-# top-level descriptive comment here
+# Codebreaker namespace module
 module Codebreaker
-  # top-level descriptive comment here
+  # #save() -- saves raw objects into .yml
+  # .load -- loads raw objects
   module FileLoader
-    # DB_FILE_NAME = 'results.yaml'
-    # DB_FILE_PATH = "./db/#{DB_FILE_NAME}"
-    # ENV[] = "./temp/#{DB_FILE_NAME}" -- need to detect where app is placed:
-    # ROOT_PATH = Pathname(__FILE__).parent.dirname.realpath + "/db/results.yaml"
     DB_PATH = "#{Pathname(__FILE__).parent.dirname.realpath}/db/"
     FILE_PATH = "#{DB_PATH}#{ENV['DB_FILE']}"
 

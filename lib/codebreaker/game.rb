@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 module Codebreaker
-  # Needs a class documentation
+  # Public interfaces for this lovely game are described in README.md ^^
   class Game
-    # class InvalidGuessError < StandardError; end
-
     include Validation
     include FileLoader
+    include Statistics
 
     attr_reader :clues
     attr_reader :user
@@ -15,7 +14,7 @@ module Codebreaker
     attr_reader :number_of_hints
     attr_reader :attempts_used
     attr_reader :hints_used
-    attr_reader :very_secret_code # for testing porpuse
+    attr_reader :very_secret_code
 
     DIFFICULTIES = {
       easy: { attempts: 15, hints: 2 },
@@ -66,7 +65,7 @@ module Codebreaker
     end
 
     def lost?
-      @attempts_used >= attempts
+      @attempts_used >= @attempts
     end
 
     def save_game

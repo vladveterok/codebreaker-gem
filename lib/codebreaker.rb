@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# uncomment next line and check all the requirements!
-
 require './bootstrap'
 
 module Codebreaker
