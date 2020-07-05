@@ -41,6 +41,11 @@ jobs:
     steps:
       - defaults
       - run_linters
+  run_specs:
+    executor: default
+    steps:
+      - defaults
+      - run_specs
 
 workflows:
   version: 2.1
