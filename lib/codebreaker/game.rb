@@ -5,7 +5,6 @@ module Codebreaker
   class Game
     include Validation
     include FileLoader
-    include Statistics
 
     attr_reader :clues
     attr_reader :user
