@@ -11,6 +11,7 @@ AllCops:
       # - 'Gemfile'
       - 'console/*'
       - '_test_folder/*'
+      - vendor/bundle/**/*
 
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
