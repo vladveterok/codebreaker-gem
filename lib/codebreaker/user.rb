@@ -9,8 +9,10 @@ module Codebreaker
 
     attr_reader :name
 
+    NAME_LENGTH = [3, 20].freeze
+
     def initialize(name:)
-      validate_user_name(name)
+      validate_user_name(name, NAME_LENGTH)
       @name = name
     end
   end

@@ -11,8 +11,8 @@ module Codebreaker
     class NoHintsLeft < GameError; end
     class InvalidName < GameError; end
 
-    def validate_user_name(name)
-      raise InvalidName, 'Name should be of 3 to 20 characters' if name.length < 3 || name.length > 20
+    def validate_user_name(name, length)
+      raise InvalidName, 'Name should be of 3 to 20 characters' if name.length < length[0] || name.length > length[1]
     end
 
     def validate_difficulty(difficulty, difficulties)
