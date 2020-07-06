@@ -37,7 +37,7 @@ module Codebreaker
     end
 
     def start_new_game
-      generate_random_code
+      @very_secret_code = generate_random_code
       @hints = @very_secret_code.clone
       @attempts_used = 0
       @hints_used = 0
@@ -74,7 +74,7 @@ module Codebreaker
     private
 
     def generate_random_code
-      @very_secret_code = CODE_LENGTH.times.map { rand(1..6) }.shuffle! # [2, 2, 3, 6]
+      CODE_LENGTH.times.map { rand(1..6) }.shuffle! # [2, 2, 3, 6]
     end
 
     def check_guess(guess, secret_code)
