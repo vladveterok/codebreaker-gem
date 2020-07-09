@@ -8,7 +8,6 @@ AllCops:
   Exclude:
       - 'db/**/*'
       - '.git/**/*'
-      # - 'Gemfile'
       - 'console/*'
       - '_test_folder/*'
       - vendor/bundle/**/*
