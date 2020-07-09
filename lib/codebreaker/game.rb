@@ -21,6 +21,7 @@ module Codebreaker
       hell: { attempts: 5, hints: 1 }
     }.freeze
     CODE_LENGTH = 4
+    DIGIT_MAX = 6
 
     def initialize(difficulty:, user:)
       validate_difficulty(difficulty, DIFFICULTIES)
@@ -74,7 +75,7 @@ module Codebreaker
     private
 
     def generate_random_code
-      CODE_LENGTH.times.map { rand(1..6) }.shuffle!
+      CODE_LENGTH.times.map { rand(1..DIGIT_MAX) }.shuffle!
     end
 
     def check_guess(guess, secret_code)
