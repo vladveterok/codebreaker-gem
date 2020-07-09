@@ -74,7 +74,7 @@ module Codebreaker
     private
 
     def generate_random_code
-      CODE_LENGTH.times.map { rand(1..6) }.shuffle! # [2, 2, 3, 6]
+      CODE_LENGTH.times.map { rand(1..6) }.shuffle!
     end
 
     def check_guess(guess, secret_code)
