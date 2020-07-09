@@ -45,8 +45,8 @@ commands:
                               --out /tmp/test-results/rspec.xml \
                               $TEST_FILES
       - store_artifacts:
-        path: ~/repo/coverage
-        destination: coverage
+          path: ~/repo/coverage
+          destination: coverage
 
 jobs:
   lintering:
