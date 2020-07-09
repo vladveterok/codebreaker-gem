@@ -1,28 +1,28 @@
 # frozen_string_literal: true
 
 RSpec.describe Codebreaker::Game do
-  subject(:game) { described_class.new(difficulty: 'easy', user: user) }
+  subject(:game) { described_class.new(difficulty: difficulty.keys[0].to_s, user: user) }
 
   let(:user) { instance_double('User') }
+  let(:difficulty) { described_class::DIFFICULTIES.slice(described_class::DIFFICULTIES.keys.sample) }
+  let(:diff_values) { difficulty[difficulty.keys[0]] }
 
   context 'when creating a new game' do
-    it 'creates a new game' do
-      expect(game).to be_an_instance_of(described_class)
-    end
+    it { expect(game).to be_an_instance_of(described_class) }
+  end
+
+  context 'when invalide difficulty' do
+    let(:klass) { described_class }
+
+    it { expect { described_class.new(difficulty: 'invalide', user: user) }.to raise_error(klass::UnknownDifficulty) }
   end
 
   context 'when new game is created' do
-    it 'is a game of particular difficulty' do
-      expect(game.difficulty).to be('easy')
-    end
+    it { expect(game.difficulty).to eq(difficulty.keys[0].to_s) }
 
-    it 'has the right number of attempts' do
-      expect(game.attempts).to be(15)
-    end
+    it { expect(game.attempts).to be(diff_values[:attempts]) }
 
-    it 'has the right number of hints' do
-      expect(game.number_of_hints).to be(2)
-    end
+    it { expect(game.number_of_hints).to be(diff_values[:hints]) }
   end
 
   context 'when starting a game' do
@@ -30,74 +30,52 @@ RSpec.describe Codebreaker::Game do
       game.start_new_game
     end
 
-    it 'generates a four-number code' do
-      expect(game.very_secret_code.length).to be(4)
-    end
+    it { expect(game.very_secret_code.length).to be(described_class::CODE_LENGTH) }
 
-    it 'generates a code with digits from 1 to 6' do
-      expect(game.very_secret_code).to all(be_between(1, 6).inclusive)
-    end
+    it { expect(game.very_secret_code).to all(be_between(1, described_class::DIGIT_MAX).inclusive) }
 
-    it 'generates hints equal to a very secret code' do
-      expect(game.very_secret_code).to include(game.show_hint)
-    end
+    it { expect(game.very_secret_code).to include(game.show_hint) }
   end
 
   context 'when playing the game' do
-    before do
-      game.start_new_game
-    end
+    before { game.start_new_game }
 
     context 'when player makes a valid guess' do
-      before do
-        game.guess('1234')
-      end
+      before { game.guess('1234') }
 
-      it 'counts attempts' do
-        expect(game.attempts_used).to be(1)
-      end
+      it { expect(game.attempts_used).to be(1) }
 
-      it 'does not win the game' do
-        expect(game.won?).to be false
-      end
+      it { expect(game.won?).to be false }
     end
 
     context 'when player makes an invalid guess' do
-      it 'raises InvalidGuessError when guess < 4 digits' do
-        expect { game.guess('123') }.to raise_error(described_class::InvalidGuess)
-      end
+      it { expect { game.guess('123') }.to raise_error(described_class::InvalidGuess) }
 
-      it 'raises InvalidGuessError when guess > 4 digits' do
-        expect { game.guess('12345') }.to raise_error(described_class::InvalidGuess)
-      end
+      it { expect { game.guess('12345') }.to raise_error(described_class::InvalidGuess) }
 
-      it 'raises InvalidGuessError when guess is not a digit of 1-6' do
-        expect { game.guess('foo0') }.to raise_error(described_class::InvalidGuess)
-      end
+      it { expect { game.guess('foo0') }.to raise_error(described_class::InvalidGuess) }
     end
 
     context 'when player makes a right guess' do
-      before do
-        game.guess(game.very_secret_code.join)
-      end
+      before { game.guess(game.very_secret_code.join) }
 
-      it 'shows 1,1,1,1 in clues' do
-        expect(game.clues).to all(be 1)
-      end
+      it { expect(game.clues).to all(be 1) }
 
-      it 'wins the game' do
-        expect(game.won?).to be true
-      end
+      it { expect(game.won?).to be true }
     end
 
     context 'when attempts are left' do
+      before { 15.times { game.guess('1111') } }
+
+      it { expect(game.lost?).to be true }
+    end
+
+    context 'when hints left' do
       before do
-        15.times { game.guess('1111') }
+        diff_values[:hints].times { game.show_hint }
       end
 
-      it 'loses the game' do
-        expect(game.lost?).to be true
-      end
+      it { expect { game.show_hint }.to raise_error(described_class::NoHintsLeft) }
     end
   end
 end

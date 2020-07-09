@@ -14,9 +14,11 @@ RSpec.describe Codebreaker::Matchmaker do
 
     test_data.length.times do |i|
       context "when guess: #{test_data[i][0]}, code: #{test_data[i][1]}" do
+        let(:matcher) { described_class.new(test_data[i][0], test_data[i][1]) }
+
+        before { matcher.match }
+
         it "expects as clues: #{test_data[i][2]}" do
-          matcher = described_class.new(test_data[i][0], test_data[i][1])
-          matcher.match
           expect(matcher.clues).to eq(test_data[i][2])
         end
       end

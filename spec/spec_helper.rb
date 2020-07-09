@@ -21,7 +21,13 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.after(:suite) do # or :each or :all
+  config.after do # or :each or :all, :suit
     FileUtils.rm_rf(Dir[ENV['DB_PATH']])
+  end
+end
+
+RSpec::Matchers.define :be_a_directory do
+  match do |dir_path|
+    Dir.exist?(dir_path)
   end
 end
