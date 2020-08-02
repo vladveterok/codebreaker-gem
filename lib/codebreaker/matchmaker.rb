@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Codebreaker
-  # Takes players guess and secret code and returnes data on match as 'clues'
   class Matchmaker
     attr_reader :clues
 

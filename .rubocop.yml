@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require: rubocop-rspec
 
 AllCops:
@@ -14,3 +16,6 @@ AllCops:
 
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
+
+Style/Documentation:
+  Enabled: false

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# Codebreaker namespace module
 module Codebreaker
-  # Defines game errors and handles validations for the game
   module Validation
     class GameError < StandardError; end
     class NoSavedData < GameError; end

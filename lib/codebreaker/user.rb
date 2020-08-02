@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-# Needs a module documentation
 module Codebreaker
-  # User now is a data class.
-  # It holds a name.
   class User
     include Validation
 

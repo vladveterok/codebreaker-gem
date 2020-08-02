@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-# Codebreaker namespace module
 module Codebreaker
-  # #save() -- saves raw objects into .yml
-  # .load -- loads raw objects
   module FileLoader
     FILE_PATH = "#{ENV['DB_PATH']}#{ENV['DB_FILE']}"
 
@@ -11,7 +8,6 @@ module Codebreaker
       base.extend(ClassMethods)
     end
 
-    # class method load
     module ClassMethods
       def load
         raise Codebreaker::Validation::NoSavedData, 'No saved data is found' unless File.exist? FILE_PATH

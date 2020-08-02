@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Codebreaker
-  # Public interfaces for this lovely game are described in README.md ^^
   class Game
     include Validation
     include FileLoader
