@@ -42,7 +42,7 @@ module Codebreaker
       validate_guess(guess, CODE_LENGTH)
       check_guess(guess, very_secret_code)
 
-      count_attempts
+      increase_attempts
     end
 
     def show_hint
@@ -76,7 +76,7 @@ module Codebreaker
       @clues = matchmaker.clues
     end
 
-    def count_attempts
+    def increase_attempts
       @attempts_used += 1
     end
   end
