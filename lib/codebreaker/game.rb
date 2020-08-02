@@ -6,14 +6,7 @@ module Codebreaker
     include Validation
     include FileLoader
 
-    attr_reader :clues
-    attr_reader :user
-    attr_reader :difficulty
-    attr_reader :attempts
-    attr_reader :number_of_hints
-    attr_reader :attempts_used
-    attr_reader :hints_used
-    attr_reader :very_secret_code
+    attr_reader :clues, :user, :difficulty, :attempts, :number_of_hints, :attempts_used, :hints_used, :very_secret_code
 
     DIFFICULTIES = {
       easy: { attempts: 15, hints: 2 },
