@@ -6,7 +6,8 @@ module Codebreaker
       invalid_name: 'Name should be of 3 to 20 characters',
       invalid_guess: 'Expect 4 digits from 1 to 6',
       no_hints_left: 'No hints left, mate',
-      unknown_difficulty: 'No such difficulty'
+      unknown_difficulty: 'No such difficulty',
+      no_save_datd: 'No saved data is found'
     }.freeze
 
     class GameError < StandardError; end
