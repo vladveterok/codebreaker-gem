@@ -6,7 +6,7 @@ module Codebreaker
       invalid_name: 'Name should be of 3 to 20 characters',
       invalid_guess: 'Expect 4 digits from 1 to 6',
       no_hints_left: 'No hints left, mate',
-      unknown_difficulty: 'No such difficulty',
+      no_difficulty: 'No such difficulty',
       no_save_datd: 'No saved data is found'
     }.freeze
 
@@ -18,12 +18,13 @@ module Codebreaker
     class InvalidName < GameError; end
 
     def validate_user_name(name, length)
-      raise InvalidName, 'Name should be of 3 to 20 characters' if name.length < length[0] || name.length > length[1]
+      # raise InvalidName, 'Name should be of 3 to 20 characters' if name.length < length[0] || name.length > length[1]
+      raise_error(InvalidName, ERROR_MESSAGES[:invalid_name]) if name.length < length[0] || name.length > length[1]
     end
 
     def validate_difficulty(difficulty, difficulties)
       # raise UnknownDifficulty, "No such difficulty as #{difficulty}" unless difficulties.keys.any?(difficulty.to_sym)
-      raise UnknownDifficulty, 'No such difficulty' unless difficulties.keys.any?(difficulty.to_sym)
+      raise_error(UnknownDifficulty, ERROR_MESSAGES[:no_difficulty]) unless difficulties.keys.any?(difficulty.to_sym)
     end
 
     def validate_guess(guess, length)
