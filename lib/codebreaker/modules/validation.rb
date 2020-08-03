@@ -7,7 +7,7 @@ module Codebreaker
       invalid_guess: 'Expect 4 digits from 1 to 6',
       no_hints_left: 'No hints left, mate',
       no_difficulty: 'No such difficulty',
-      no_save_datd: 'No saved data is found'
+      no_save_data: 'No saved data is found'
     }.freeze
 
     class GameError < StandardError; end
@@ -37,6 +37,11 @@ module Codebreaker
     def validate_hints(hints_used, hints_total)
       # raise NoHintsLeft, 'No hints left, mate' if hints_used >= hints_total
       raise_error(NoHintsLeft, ERROR_MESSAGES[:no_hints_left]) if hints_used >= hints_total
+    end
+
+    def validate_file_existens(file_path)
+      # raise Codebreaker::Validation::NoSavedData, 'No saved data is found' unless File.exist? file_path
+      raise_error(NoSavedData, ERROR_MESSAGES[:no_save_data]) unless File.exist? file_path
     end
 
     def raise_error(error_class, error_message)

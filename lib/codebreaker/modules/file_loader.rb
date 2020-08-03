@@ -9,8 +9,10 @@ module Codebreaker
     end
 
     module ClassMethods
+      include Validation
       def load
-        raise Codebreaker::Validation::NoSavedData, 'No saved data is found' unless File.exist? FILE_PATH
+        # raise Codebreaker::Validation::NoSavedData, 'No saved data is found' unless File.exist? FILE_PATH
+        validate_file_existens(FILE_PATH)
 
         File.open(FILE_PATH, 'r') do |file|
           YAML.load_stream(file)
