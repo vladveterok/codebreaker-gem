@@ -68,7 +68,7 @@ module Codebreaker
     private
 
     def generate_random_code
-      CODE_LENGTH.times.map { rand(1..DIGIT_MAX) }.shuffle!
+      CODE_LENGTH.times.map { rand(DIGIT_MIN_MAX) }.shuffle!
     end
 
     def check_guess(guess, secret_code)

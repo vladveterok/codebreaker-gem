@@ -26,13 +26,16 @@ RSpec.describe Codebreaker::Game do
   end
 
   context 'when starting a game' do
+    let(:min) { described_class::DIGIT_MIN_MAX.first }
+    let(:max) { described_class::DIGIT_MIN_MAX.last }
+
     before do
       game.start_new_game
     end
 
     it { expect(game.very_secret_code.length).to be(described_class::CODE_LENGTH) }
 
-    it { expect(game.very_secret_code).to all(be_between(1, described_class::DIGIT_MAX).inclusive) }
+    it { expect(game.very_secret_code).to all(be_between(min, max).inclusive) }
 
     it { expect(game.very_secret_code).to include(game.show_hint) }
   end
