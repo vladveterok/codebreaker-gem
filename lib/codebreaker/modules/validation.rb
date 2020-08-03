@@ -27,12 +27,18 @@ module Codebreaker
     end
 
     def validate_guess(guess, length)
-      raise InvalidGuess, 'Expect 4 digits from 1 to 6' unless guess.compact.length == length
-      raise InvalidGuess, 'Expect 4 digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
+      # raise InvalidGuess, 'Expect 4 digits from 1 to 6' unless guess.compact.length == length
+      # raise InvalidGuess, 'Expect 4 digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
+      raise_error(InvalidGuess, ERROR_MESSAGES[:invalid_guess]) unless guess.compact.length == length
+      raise_error(InvalidGuess, ERROR_MESSAGES[:invalid_guess]) if guess.compact.any? { |num| num < 1 || num > 6 }
     end
 
     def validate_hints(hints_used, hints_total)
       raise NoHintsLeft, 'No hints left, mate' if hints_used >= hints_total
+    end
+
+    def raise_error(error_class, error_message)
+      raise error_class, error_message
     end
   end
 end
