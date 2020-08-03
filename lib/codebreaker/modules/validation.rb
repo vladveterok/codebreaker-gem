@@ -2,6 +2,13 @@
 
 module Codebreaker
   module Validation
+    ERROR_MESSAGES = {
+      invalid_name: 'Name should be of 3 to 20 characters',
+      invalid_guess: 'Expect 4 digits from 1 to 6',
+      no_hints_left: 'No hints left, mate',
+      unknown_difficulty: 'No such difficulty'
+    }.freeze
+
     class GameError < StandardError; end
     class NoSavedData < GameError; end
     class UnknownDifficulty < GameError; end
@@ -14,11 +21,12 @@ module Codebreaker
     end
 
     def validate_difficulty(difficulty, difficulties)
-      raise UnknownDifficulty, "No such difficulty as #{difficulty}" unless difficulties.keys.any?(difficulty.to_sym)
+      # raise UnknownDifficulty, "No such difficulty as #{difficulty}" unless difficulties.keys.any?(difficulty.to_sym)
+      raise UnknownDifficulty, 'No such difficulty' unless difficulties.keys.any?(difficulty.to_sym)
     end
 
     def validate_guess(guess, length)
-      raise InvalidGuess, 'Expect 4 digits' unless guess.compact.length == length
+      raise InvalidGuess, 'Expect 4 digits from 1 to 6' unless guess.compact.length == length
       raise InvalidGuess, 'Expect 4 digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
     end
 
