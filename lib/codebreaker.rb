@@ -10,7 +10,7 @@
 # require_relative 'codebreaker/matchmaker'
 # require_relative 'codebreaker/user'
 
-# require_relative '../bootstrap'
+require_relative '../bootstrap'
 
 module Codebreaker
   class Error < StandardError; end
