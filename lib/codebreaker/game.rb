@@ -13,7 +13,8 @@ module Codebreaker
       hell: { attempts: 5, hints: 1 }
     }.freeze
     CODE_LENGTH = 4
-    DIGIT_MAX = 6
+    # DIGIT_MAX = 6
+    DIGIT_MIN_MAX = (1..6).freeze
 
     def initialize(difficulty:, user:)
       validate_difficulty(difficulty, DIFFICULTIES)
@@ -39,7 +40,7 @@ module Codebreaker
 
     def guess(args)
       guess = args.each_char.map(&:to_i)
-      validate_guess(guess, CODE_LENGTH)
+      validate_guess(guess, CODE_LENGTH, DIGIT_MIN_MAX)
       check_guess(guess, very_secret_code)
 
       increase_attempts

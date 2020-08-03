@@ -19,7 +19,7 @@ module Codebreaker
 
     def validate_user_name(name, length)
       # raise InvalidName, 'Name should be of 3 to 20 characters' if name.length < length[0] || name.length > length[1]
-      raise_error(InvalidName, ERROR_MESSAGES[:invalid_name]) if name.length < length[0] || name.length > length[1]
+      raise_error(InvalidName, ERROR_MESSAGES[:invalid_name]) unless length.cover? name.length
     end
 
     def validate_difficulty(difficulty, difficulties)
@@ -27,15 +27,16 @@ module Codebreaker
       raise_error(UnknownDifficulty, ERROR_MESSAGES[:no_difficulty]) unless difficulties.keys.any?(difficulty.to_sym)
     end
 
-    def validate_guess(guess, length)
+    def validate_guess(guess, length, range)
       # raise InvalidGuess, 'Expect 4 digits from 1 to 6' unless guess.compact.length == length
       # raise InvalidGuess, 'Expect 4 digits from 1 to 6' if guess.compact.any? { |num| num < 1 || num > 6 }
       raise_error(InvalidGuess, ERROR_MESSAGES[:invalid_guess]) unless guess.compact.length == length
-      raise_error(InvalidGuess, ERROR_MESSAGES[:invalid_guess]) if guess.compact.any? { |num| num < 1 || num > 6 }
+      raise_error(InvalidGuess, ERROR_MESSAGES[:invalid_guess]) if guess.compact.any? { |num| !range.cover? num }
     end
 
     def validate_hints(hints_used, hints_total)
-      raise NoHintsLeft, 'No hints left, mate' if hints_used >= hints_total
+      # raise NoHintsLeft, 'No hints left, mate' if hints_used >= hints_total
+      raise_error(NoHintsLeft, ERROR_MESSAGES[:no_hints_left]) if hints_used >= hints_total
     end
 
     def raise_error(error_class, error_message)
