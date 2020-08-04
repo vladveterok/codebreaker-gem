@@ -16,7 +16,6 @@ module Codebreaker
     end
 
     def match
-      # collected = @secret_code.zip(@guess).delete_if { |code, guess| write_to_clues(1) if code == guess }
       collected = @secret_code.zip(@guess).delete_if { |code, guess| write_to_clues(CLUES[:exact]) if code == guess }
       @secret_code, @guess = collected.transpose
 
@@ -25,7 +24,6 @@ module Codebreaker
       @guess.compact.each do |num|
         next unless @secret_code.any?(num)
 
-        # write_to_clues(2)
         write_to_clues(CLUES[:non_exact])
         @secret_code[@secret_code.index(num)] = nil
       end
@@ -34,9 +32,5 @@ module Codebreaker
     def write_to_clues(clue)
       @clues[@clues.find_index(nil)] = clue
     end
-
-    # def clues
-    #  Array.new(Game::CODE_LENGTH)
-    # end
   end
 end

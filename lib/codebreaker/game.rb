@@ -12,26 +12,18 @@ module Codebreaker
       medium: { attempts: 10, hints: 1 },
       hell: { attempts: 5, hints: 1 }
     }.freeze
+
     CODE_LENGTH = 4
-    # DIGIT_MAX = 6
     DIGIT_MIN_MAX = (1..6).freeze
 
     def initialize(difficulty:, user:)
-      # hide somewhere
       validate_difficulty(difficulty, DIFFICULTIES)
 
       @user = user
       @difficulty = difficulty
 
-      # @attempts = DIFFICULTIES[difficulty.to_sym][:attempts]
       attempts
-      # @number_of_hints = DIFFICULTIES[difficulty.to_sym][:hints]
       number_of_hints
-
-      # @very_secret_code = []
-      # @hints = []
-      # @attempts_used = 0
-      # @hints_used = 0
     end
 
     def start_new_game
