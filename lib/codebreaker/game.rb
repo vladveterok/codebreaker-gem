@@ -69,8 +69,6 @@ module Codebreaker
       save(self)
     end
 
-    private
-
     def attempts
       @attempts ||= DIFFICULTIES[@difficulty.to_sym][:attempts]
     end
@@ -78,6 +76,8 @@ module Codebreaker
     def number_of_hints
       @number_of_hints ||= DIFFICULTIES[difficulty.to_sym][:hints]
     end
+
+    private
 
     def generate_random_code
       CODE_LENGTH.times.map { rand(DIGIT_MIN_MAX) }.shuffle!

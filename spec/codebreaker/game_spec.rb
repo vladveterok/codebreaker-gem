@@ -20,9 +20,9 @@ RSpec.describe Codebreaker::Game do
   context 'when new game is created' do
     it { expect(game.difficulty).to eq(difficulty.keys[0].to_s) }
 
-    # it { expect(game.attempts).to be(diff_values[:attempts]) }
+    it { expect(game.attempts).to be(diff_values[:attempts]) }
 
-    # it { expect(game.number_of_hints).to be(diff_values[:hints]) }
+    it { expect(game.number_of_hints).to be(diff_values[:hints]) }
   end
 
   context 'when starting a game' do
