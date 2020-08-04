@@ -5,7 +5,7 @@ module Codebreaker
     include Validation
     include FileLoader
 
-    attr_reader :clues, :user, :difficulty, :attempts, :number_of_hints, :attempts_used, :hints_used, :very_secret_code
+    attr_reader :clues, :user, :difficulty, :attempts_used, :hints_used, :very_secret_code
 
     DIFFICULTIES = {
       easy: { attempts: 15, hints: 2 },
@@ -17,17 +17,21 @@ module Codebreaker
     DIGIT_MIN_MAX = (1..6).freeze
 
     def initialize(difficulty:, user:)
+      # hide somewhere
       validate_difficulty(difficulty, DIFFICULTIES)
 
       @user = user
       @difficulty = difficulty
-      @attempts = DIFFICULTIES[difficulty.to_sym][:attempts]
-      @number_of_hints = DIFFICULTIES[difficulty.to_sym][:hints]
 
-      @very_secret_code = []
-      @hints = []
-      @attempts_used = 0
-      @hints_used = 0
+      # @attempts = DIFFICULTIES[difficulty.to_sym][:attempts]
+      attempts
+      # @number_of_hints = DIFFICULTIES[difficulty.to_sym][:hints]
+      number_of_hints
+
+      # @very_secret_code = []
+      # @hints = []
+      # @attempts_used = 0
+      # @hints_used = 0
     end
 
     def start_new_game
@@ -66,6 +70,14 @@ module Codebreaker
     end
 
     private
+
+    def attempts
+      @attempts ||= DIFFICULTIES[@difficulty.to_sym][:attempts]
+    end
+
+    def number_of_hints
+      @number_of_hints ||= DIFFICULTIES[difficulty.to_sym][:hints]
+    end
 
     def generate_random_code
       CODE_LENGTH.times.map { rand(DIGIT_MIN_MAX) }.shuffle!
