@@ -2,14 +2,16 @@
 
 RSpec.describe Codebreaker::Matchmaker do
   describe '#match' do
+    exact = 1
+    non_exact = 2
     test_data =
       [
-        [[6, 5, 4, 3], [5, 6, 4, 3], [1, 1, 2, 2]],
-        [[6, 5, 4, 3], [6, 5, 4, 4], [1, 1, 1, nil]],
-        [[6, 5, 4, 3], [6, 6, 6, 6], [1, nil, nil, nil]],
-        [[6, 5, 4, 3], [2, 6, 6, 6], [2, nil, nil, nil]],
-        [[1, 2, 3, 4], [3, 1, 2, 4], [1, 2, 2, 2]],
-        [[1, 2, 3, 4], [1, 5, 2, 4], [1, 1, 2, nil]]
+        [[6, 5, 4, 3], [5, 6, 4, 3], [exact, exact, non_exact, non_exact]],
+        [[6, 5, 4, 3], [6, 5, 4, 4], [exact, exact, exact, nil]],
+        [[6, 5, 4, 3], [6, 6, 6, 6], [exact, nil, nil, nil]],
+        [[6, 5, 4, 3], [2, 6, 6, 6], [non_exact, nil, nil, nil]],
+        [[1, 2, 3, 4], [3, 1, 2, 4], [exact, non_exact, non_exact, non_exact]],
+        [[1, 2, 3, 4], [1, 5, 2, 4], [exact, exact, non_exact, nil]]
       ]
 
     test_data.length.times do |i|
