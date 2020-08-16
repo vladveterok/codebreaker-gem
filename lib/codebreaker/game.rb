@@ -37,8 +37,8 @@ module Codebreaker
       @clues = Array.new(4)
     end
 
-    def guess(args)
-      guess = args.each_char.map(&:to_i)
+    def guess(user_guess)
+      guess = user_guess.each_char.map(&:to_i)
       validate_guess(guess, CODE_LENGTH, DIGIT_MIN_MAX)
       check_guess(guess, very_secret_code)
 
@@ -65,7 +65,7 @@ module Codebreaker
     end
 
     def attempts
-      @attempts ||= DIFFICULTIES[@difficulty.to_sym][:attempts]
+      @attempts ||= DIFFICULTIES[difficulty.to_sym][:attempts]
     end
 
     def number_of_hints

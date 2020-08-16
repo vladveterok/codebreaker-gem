@@ -20,8 +20,12 @@ module Codebreaker
     end
 
     def save(object)
-      Dir.mkdir(ENV['DB_PATH']) unless Dir.exist?(ENV['DB_PATH'])
+      create_directory('DB_PATH') unless Dir.exist?(ENV['DB_PATH'])
       File.open(FILE_PATH, 'a') { |file| file.write(object.to_yaml) }
+    end
+
+    def create_directory(path)
+      Dir.mkdir(ENV[path])
     end
   end
 end

@@ -12,15 +12,18 @@ module Codebreaker
     def initialize(guess, secret_code)
       @secret_code = secret_code
       @guess = guess
-      @clues = Array.new(Game::CODE_LENGTH)
+      @clues = [] # Array.new(Game::CODE_LENGTH)
     end
 
     def match
       collected = @secret_code.zip(@guess).delete_if { |code, guess| write_to_clues(CLUES[:exact]) if code == guess }
       @secret_code, @guess = collected.transpose
+      return unless @guess
 
-      return if @guess.nil?
+      non_exact_match
+    end
 
+    def non_exact_match
       @guess.compact.each do |num|
         next unless @secret_code.any?(num)
 
@@ -30,7 +33,8 @@ module Codebreaker
     end
 
     def write_to_clues(clue)
-      @clues[@clues.find_index(nil)] = clue
+      @clues.push clue
+      # @clues[@clues.find_index(nil)] = clue
     end
   end
 end
