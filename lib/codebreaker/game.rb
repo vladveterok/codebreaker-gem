@@ -35,7 +35,7 @@ module Codebreaker
       @attempts_used = 0
       @hints_used = 0
       @user_guess = []
-      # @clues = []
+      @clues = []
     end
 
     def guess(user_guess)
