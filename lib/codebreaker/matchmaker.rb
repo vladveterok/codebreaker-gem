@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'pry' # remove
+
 module Codebreaker
   class Matchmaker
-    attr_reader :clues
+    attr_reader :clues, :guess
 
     CLUES = {
       exact: 1,

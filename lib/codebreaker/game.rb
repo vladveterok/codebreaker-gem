@@ -7,7 +7,7 @@ module Codebreaker
 
     attr_reader :clues, :user, :difficulty,
                 :attempts_used, :hints_used, :very_secret_code,
-                :date
+                :date, :user_guess
 
     DIFFICULTIES = {
       easy: { attempts: 15, hints: 2 },
@@ -34,13 +34,14 @@ module Codebreaker
       @hints = @very_secret_code.clone
       @attempts_used = 0
       @hints_used = 0
-      @clues = []
+      @user_guess = []
+      # @clues = []
     end
 
     def guess(user_guess)
-      guess = user_guess.each_char.map(&:to_i)
-      validate_guess(guess, CODE_LENGTH, RANGE_GUESS_CODE)
-      check_guess(guess, very_secret_code)
+      @user_guess = user_guess.each_char.map(&:to_i)
+      validate_guess(@user_guess, CODE_LENGTH, RANGE_GUESS_CODE)
+      check_guess(@user_guess, very_secret_code)
 
       increase_attempts
     end
@@ -53,7 +54,8 @@ module Codebreaker
     end
 
     def won?
-      @clues.count == CODE_LENGTH && @clues.all?(Matchmaker::CLUES[:exact])
+      # @clues.count == CODE_LENGTH && @clues.all?(Matchmaker::CLUES[:exact])
+      @user_guess.nil?
     end
 
     def lost?
@@ -80,7 +82,9 @@ module Codebreaker
 
     def check_guess(guess, secret_code)
       matchmaker = Codebreaker::Matchmaker.new(guess, secret_code)
-      matchmaker.match
+      @user_guess = matchmaker.match
+      # binding.pry
+      # matchmaker.match
       @clues = matchmaker.clues
     end
 
