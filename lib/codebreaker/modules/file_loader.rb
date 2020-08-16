@@ -1,25 +1,27 @@
 # frozen_string_literal: true
 
 module Codebreaker
-  module FileLoader
+  class FileLoader
+    include Validation
+
     FILE_PATH = "#{ENV['DB_PATH']}#{ENV['DB_FILE']}"
 
-    def self.included(base)
-      base.extend(ClassMethods)
+    attr_reader :object
+
+    def initialize(object, db_file_path = FILE_PATH)
+      @object = object
+      @db_file_path = db_file_path
     end
 
-    module ClassMethods
-      include Validation
-      def load
-        validate_file_existens(FILE_PATH)
+    def load
+      validate_file_existens(FILE_PATH)
 
-        File.open(FILE_PATH, 'r') do |file|
-          YAML.load_stream(file)
-        end
+      File.open(FILE_PATH, 'r') do |file|
+        YAML.load_stream(file)
       end
     end
 
-    def save(object)
+    def save
       create_directory('DB_PATH') unless Dir.exist?(ENV['DB_PATH'])
       File.open(FILE_PATH, 'a') { |file| file.write(object.to_yaml) }
     end

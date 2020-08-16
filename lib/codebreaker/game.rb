@@ -3,7 +3,7 @@
 module Codebreaker
   class Game
     include Validation
-    include FileLoader
+    # include FileLoader
 
     attr_reader :clues, :user, :difficulty,
                 :attempts_used, :hints_used, :very_secret_code,
@@ -63,7 +63,7 @@ module Codebreaker
     end
 
     def save_game
-      save(self)
+      FileLoader.new(self).save
     end
 
     def attempts
