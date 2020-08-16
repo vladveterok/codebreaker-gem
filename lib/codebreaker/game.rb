@@ -5,7 +5,9 @@ module Codebreaker
     include Validation
     include FileLoader
 
-    attr_reader :clues, :user, :difficulty, :attempts_used, :hints_used, :very_secret_code
+    attr_reader :clues, :user, :difficulty,
+                :attempts_used, :hints_used, :very_secret_code,
+                :date
 
     DIFFICULTIES = {
       easy: { attempts: 15, hints: 2 },
@@ -16,11 +18,12 @@ module Codebreaker
     CODE_LENGTH = 4
     DIGIT_MIN_MAX = (1..6).freeze
 
-    def initialize(difficulty:, user:)
+    def initialize(difficulty:, user:, date: Date.today)
       validate_difficulty(difficulty, DIFFICULTIES)
 
       @user = user
       @difficulty = difficulty
+      @date = date
 
       attempts
       number_of_hints

@@ -11,7 +11,7 @@
 /lib/tmp
 /lib/codebreaker/db
 /_test_folder
-/console
+/console/
 *txt
 *yaml
 .DS_Store
