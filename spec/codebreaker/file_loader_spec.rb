@@ -10,11 +10,11 @@ RSpec.describe Codebreaker::FileLoader do
     context 'when saving and loading file' do
       before { game.save_game }
 
-      it { expect(described_class.new(game).load).to include(game.class) }
+      it { expect(described_class.new.load).to include(game.class) }
     end
 
     context 'when no saved data' do
-      it { expect { described_class.new(game).load }.to raise_error(Codebreaker::Validation::NoSavedData) }
+      it { expect { described_class.new.load }.to raise_error(Codebreaker::Validation::NoSavedData) }
     end
 
     context 'when saving file' do

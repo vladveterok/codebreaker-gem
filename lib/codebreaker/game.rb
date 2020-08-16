@@ -63,7 +63,7 @@ module Codebreaker
     end
 
     def save_game
-      FileLoader.new(self).save
+      FileLoader.new.save(self)
     end
 
     def attempts

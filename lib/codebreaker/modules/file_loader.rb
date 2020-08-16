@@ -6,10 +6,10 @@ module Codebreaker
 
     FILE_PATH = "#{ENV['DB_PATH']}#{ENV['DB_FILE']}"
 
-    attr_reader :object
+    # attr_reader :object
 
-    def initialize(object, db_file_path = FILE_PATH)
-      @object = object
+    def initialize(db_file_path = FILE_PATH)
+      # @object = object
       @db_file_path = db_file_path
     end
 
@@ -21,7 +21,7 @@ module Codebreaker
       end
     end
 
-    def save
+    def save(object)
       create_directory('DB_PATH') unless Dir.exist?(ENV['DB_PATH'])
       File.open(FILE_PATH, 'a') { |file| file.write(object.to_yaml) }
     end
