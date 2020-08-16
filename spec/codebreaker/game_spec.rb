@@ -26,8 +26,8 @@ RSpec.describe Codebreaker::Game do
   end
 
   context 'when starting a game' do
-    let(:min) { described_class::DIGIT_MIN_MAX.first }
-    let(:max) { described_class::DIGIT_MIN_MAX.last }
+    let(:min) { described_class::RANGE_GUESS_CODE.first }
+    let(:max) { described_class::RANGE_GUESS_CODE.last }
 
     before do
       game.start_new_game

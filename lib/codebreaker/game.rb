@@ -16,7 +16,7 @@ module Codebreaker
     }.freeze
 
     CODE_LENGTH = 4
-    DIGIT_MIN_MAX = (1..6).freeze
+    RANGE_GUESS_CODE = (1..6).freeze
 
     def initialize(difficulty:, user:, date: Date.today)
       validate_difficulty(difficulty, DIFFICULTIES)
@@ -39,7 +39,7 @@ module Codebreaker
 
     def guess(user_guess)
       guess = user_guess.each_char.map(&:to_i)
-      validate_guess(guess, CODE_LENGTH, DIGIT_MIN_MAX)
+      validate_guess(guess, CODE_LENGTH, RANGE_GUESS_CODE)
       check_guess(guess, very_secret_code)
 
       increase_attempts
@@ -53,7 +53,7 @@ module Codebreaker
     end
 
     def won?
-      @clues.count == 4 && @clues.all?(Matchmaker::CLUES[:exact])
+      @clues.count == CODE_LENGTH && @clues.all?(Matchmaker::CLUES[:exact])
     end
 
     def lost?
@@ -75,7 +75,7 @@ module Codebreaker
     private
 
     def generate_random_code
-      CODE_LENGTH.times.map { rand(DIGIT_MIN_MAX) }.shuffle!
+      Array.new(CODE_LENGTH) { rand(RANGE_GUESS_CODE) }
     end
 
     def check_guess(guess, secret_code)

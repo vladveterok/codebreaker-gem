@@ -18,7 +18,7 @@ module Codebreaker
     class InvalidName < GameError; end
 
     def validate_user_name(name, length)
-      raise_error(InvalidName, :invalid_name) unless length.cover? name.length
+      raise_error(InvalidName, :invalid_name) unless length.cover?(name.length)
     end
 
     def validate_difficulty(difficulty, difficulties)
@@ -35,11 +35,11 @@ module Codebreaker
     end
 
     def validate_file_existens(file_path)
-      raise_error(NoSavedData, :no_save_data) unless File.exist? file_path
+      raise_error(NoSavedData, :no_save_data) unless File.exist?(file_path)
     end
 
     def raise_error(error_class, error_message)
-      raise error_class, ERROR_MESSAGES[error_message] # error_message
+      raise error_class, ERROR_MESSAGES[error_message]
     end
   end
 end

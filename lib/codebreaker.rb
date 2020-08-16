@@ -4,5 +4,4 @@ require_relative '../bootstrap'
 
 module Codebreaker
   class Error < StandardError; end
-  # Your code goes here...
 end

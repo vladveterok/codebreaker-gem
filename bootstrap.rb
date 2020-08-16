@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'yaml/store'
-require 'pathname'
+# require 'pathname'
 require 'date'
 
 require_relative 'lib/codebreaker/version'

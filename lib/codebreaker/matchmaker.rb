@@ -33,7 +33,7 @@ module Codebreaker
     end
 
     def write_to_clues(clue)
-      @clues.push clue
+      @clues.push(clue)
       # @clues[@clues.find_index(nil)] = clue
     end
   end
