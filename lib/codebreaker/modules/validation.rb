@@ -18,28 +18,28 @@ module Codebreaker
     class InvalidName < GameError; end
 
     def validate_user_name(name, length)
-      raise_error(InvalidName, ERROR_MESSAGES[:invalid_name]) unless length.cover? name.length
+      raise_error(InvalidName, :invalid_name) unless length.cover? name.length
     end
 
     def validate_difficulty(difficulty, difficulties)
-      raise_error(UnknownDifficulty, ERROR_MESSAGES[:no_difficulty]) unless difficulties.keys.any?(difficulty.to_sym)
+      raise_error(UnknownDifficulty, :no_difficulty) unless difficulties.keys.any?(difficulty.to_sym)
     end
 
     def validate_guess(guess, length, range)
-      raise_error(InvalidGuess, ERROR_MESSAGES[:invalid_guess]) unless guess.compact.length == length
-      raise_error(InvalidGuess, ERROR_MESSAGES[:invalid_guess]) if guess.compact.any? { |num| !range.cover? num }
+      raise_error(InvalidGuess, :invalid_guess) unless guess.compact.length == length
+      raise_error(InvalidGuess, :invalid_guess) if guess.compact.any? { |num| !range.cover? num }
     end
 
     def validate_hints(hints_used, hints_total)
-      raise_error(NoHintsLeft, ERROR_MESSAGES[:no_hints_left]) if hints_used >= hints_total
+      raise_error(NoHintsLeft, :no_hints_left) if hints_used >= hints_total
     end
 
     def validate_file_existens(file_path)
-      raise_error(NoSavedData, ERROR_MESSAGES[:no_save_data]) unless File.exist? file_path
+      raise_error(NoSavedData, :no_save_data) unless File.exist? file_path
     end
 
     def raise_error(error_class, error_message)
-      raise error_class, error_message
+      raise error_class, ERROR_MESSAGES[error_message] # error_message
     end
   end
 end
