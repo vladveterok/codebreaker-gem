@@ -7,7 +7,7 @@ module Codebreaker
 
     attr_reader :clues, :user, :difficulty,
                 :attempts_used, :hints_used, :very_secret_code,
-                :date, :user_guess
+                :date
 
     DIFFICULTIES = {
       easy: { attempts: 15, hints: 2 },
@@ -39,9 +39,9 @@ module Codebreaker
     end
 
     def guess(user_guess)
-      @user_guess = user_guess.each_char.map(&:to_i)
-      validate_guess(@user_guess, CODE_LENGTH, RANGE_GUESS_CODE)
-      check_guess(@user_guess, very_secret_code)
+      guess = user_guess.each_char.map(&:to_i)
+      validate_guess(guess, CODE_LENGTH, RANGE_GUESS_CODE)
+      check_guess(guess, very_secret_code)
 
       increase_attempts
     end

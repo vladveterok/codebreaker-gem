@@ -4,7 +4,7 @@ require 'pry' # remove
 
 module Codebreaker
   class Matchmaker
-    attr_reader :clues, :guess
+    attr_reader :clues # , :guess
 
     CLUES = {
       exact: 1,
