@@ -34,7 +34,7 @@ module Codebreaker
       @hints = @very_secret_code.clone
       @attempts_used = 0
       @hints_used = 0
-      @clues = Array.new(4)
+      @clues = []
     end
 
     def guess(user_guess)
@@ -53,7 +53,7 @@ module Codebreaker
     end
 
     def won?
-      @clues.all?(1)
+      @clues.count == 4 && @clues.all?(Matchmaker::CLUES[:exact])
     end
 
     def lost?
