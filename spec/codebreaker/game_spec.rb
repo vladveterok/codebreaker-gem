@@ -7,40 +7,44 @@ RSpec.describe Codebreaker::Game do
   let(:difficulty) { described_class::DIFFICULTIES.slice(described_class::DIFFICULTIES.keys.sample) }
   let(:diff_values) { difficulty[difficulty.keys[0]] }
 
-  context 'when creating a new game' do
-    it { expect(game).to be_an_instance_of(described_class) }
-  end
-
-  context 'when invalide difficulty' do
-    let(:klass) { described_class }
-
-    it { expect { described_class.new(difficulty: 'invalide', user: user) }.to raise_error(klass::UnknownDifficulty) }
-  end
-
-  context 'when new game is created' do
-    it { expect(game.difficulty).to eq(difficulty.keys[0].to_s) }
-
-    it { expect(game.attempts).to be(diff_values[:attempts]) }
-
-    it { expect(game.number_of_hints).to be(diff_values[:hints]) }
-  end
-
-  context 'when starting a game' do
-    let(:min) { described_class::RANGE_GUESS_CODE.first }
-    let(:max) { described_class::RANGE_GUESS_CODE.last }
-
-    before do
-      game.start_new_game
+  describe '#initialize' do
+    context 'when creating a new game' do
+      it { expect(game).to be_an_instance_of(described_class) }
     end
 
-    it { expect(game.very_secret_code.length).to be(described_class::CODE_LENGTH) }
+    context 'when invalide difficulty' do
+      let(:klass) { described_class }
 
-    it { expect(game.very_secret_code).to all(be_between(min, max).inclusive) }
+      it { expect { described_class.new(difficulty: 'invalide', user: user) }.to raise_error(klass::UnknownDifficulty) }
+    end
 
-    it { expect(game.very_secret_code).to include(game.show_hint) }
+    context 'when new game is created' do
+      it { expect(game.difficulty).to eq(difficulty.keys[0].to_s) }
+
+      it { expect(game.attempts).to be(diff_values[:attempts]) }
+
+      it { expect(game.number_of_hints).to be(diff_values[:hints]) }
+    end
   end
 
-  context 'when playing the game' do
+  describe '#start_new_game' do
+    context 'when starting a game' do
+      let(:min) { described_class::RANGE_GUESS_CODE.first }
+      let(:max) { described_class::RANGE_GUESS_CODE.last }
+
+      before do
+        game.start_new_game
+      end
+
+      it { expect(game.very_secret_code.length).to be(described_class::CODE_LENGTH) }
+
+      it { expect(game.very_secret_code).to all(be_between(min, max).inclusive) }
+
+      it { expect(game.very_secret_code).to include(game.show_hint) }
+    end
+  end
+
+  describe '#game' do
     before { game.start_new_game }
 
     context 'when player makes a valid guess' do
@@ -72,9 +76,12 @@ RSpec.describe Codebreaker::Game do
 
       it { expect(game.lost?).to be true }
     end
+  end
 
+  describe '#show_hint' do
     context 'when hints left' do
       before do
+        game.start_new_game
         diff_values[:hints].times { game.show_hint }
       end
 

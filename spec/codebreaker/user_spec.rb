@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Codebreaker::User do
-  context 'when creating a new user' do
+  describe '#initialize' do
     context 'when name is invalid' do
       let(:name_too_short) { 'a' * (Codebreaker::User::NAME_LENGTH.min - 1) }
       let(:name_too_long) { 'a' * (Codebreaker::User::NAME_LENGTH.max + 1) }
