@@ -3,7 +3,6 @@
 module Codebreaker
   class Game
     include Validation
-    # include FileLoader
 
     attr_reader :clues, :user, :difficulty,
                 :attempts_used, :hints_used, :very_secret_code,
@@ -54,7 +53,6 @@ module Codebreaker
     end
 
     def won?
-      # @clues.count == CODE_LENGTH && @clues.all?(Matchmaker::CLUES[:exact])
       @user_guess.nil?
     end
 
@@ -83,8 +81,6 @@ module Codebreaker
     def check_guess(guess, secret_code)
       matchmaker = Codebreaker::Matchmaker.new(guess, secret_code)
       @user_guess = matchmaker.match
-      # binding.pry
-      # matchmaker.match
       @clues = matchmaker.clues
     end
 

@@ -6,10 +6,7 @@ module Codebreaker
 
     FILE_PATH = "#{ENV['DB_PATH']}#{ENV['DB_FILE']}"
 
-    # attr_reader :object
-
     def initialize(db_file_path = FILE_PATH)
-      # @object = object
       @db_file_path = db_file_path
     end
 

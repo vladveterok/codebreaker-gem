@@ -14,7 +14,7 @@ module Codebreaker
     def initialize(guess, secret_code)
       @secret_code = secret_code
       @guess = guess
-      @clues = [] # Array.new(Game::CODE_LENGTH)
+      @clues = []
     end
 
     def match
@@ -36,7 +36,6 @@ module Codebreaker
 
     def write_to_clues(clue)
       @clues.push(clue)
-      # @clues[@clues.find_index(nil)] = clue
     end
   end
 end
