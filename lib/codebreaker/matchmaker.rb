@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry' # remove
-
 module Codebreaker
   class Matchmaker
     attr_reader :clues # , :guess
