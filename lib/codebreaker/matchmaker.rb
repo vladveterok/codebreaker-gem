@@ -2,11 +2,11 @@
 
 module Codebreaker
   class Matchmaker
-    attr_reader :clues # , :guess
+    attr_reader :clues
 
     CLUES = {
-      exact: 1,
-      non_exact: 2
+      exact: :exact,
+      non_exact: :non_exact
     }.freeze
 
     def initialize(guess, secret_code)

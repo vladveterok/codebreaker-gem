@@ -45,10 +45,15 @@ RSpec.describe Codebreaker::Game do
   end
 
   describe '#game' do
+    let(:short_guess) { '123' }
+    let(:long_guess) { '12345' }
+    let(:wordy_guess) { 'foo0' }
+    let(:valid_guess) { '1234' }
+
     before { game.start_new_game }
 
     context 'when player makes a valid guess' do
-      before { game.guess('1234') }
+      before { game.guess(valid_guess) }
 
       it { expect(game.attempts_used).to be(1) }
 
@@ -56,17 +61,17 @@ RSpec.describe Codebreaker::Game do
     end
 
     context 'when player makes an invalid guess' do
-      it { expect { game.guess('123') }.to raise_error(described_class::InvalidGuess) }
+      it { expect { game.guess(short_guess) }.to raise_error(described_class::InvalidGuess) }
 
-      it { expect { game.guess('12345') }.to raise_error(described_class::InvalidGuess) }
+      it { expect { game.guess(long_guess) }.to raise_error(described_class::InvalidGuess) }
 
-      it { expect { game.guess('foo0') }.to raise_error(described_class::InvalidGuess) }
+      it { expect { game.guess(wordy_guess) }.to raise_error(described_class::InvalidGuess) }
     end
 
     context 'when player makes a right guess' do
       before { game.guess(game.very_secret_code.join) }
 
-      it { expect(game.clues).to all(be 1) }
+      it { expect(game.clues).to all(be :exact) }
 
       it { expect(game.won?).to be true }
     end
