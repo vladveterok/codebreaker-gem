@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+require: rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+
+Style/Documentation:
+  Enabled: false
