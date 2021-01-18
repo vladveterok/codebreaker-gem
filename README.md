@@ -1,6 +1,10 @@
 # Codebreaker
 
 This is a Codebreaker game. You break the code. That's it.
+Check it on Heroku: https://secret-reaches-63131.herokuapp.com
+
+## Technologies
+Please, check [gemspec](https://github.com/vladveterok/codebreaker-gem/blob/master/codebreaker.gemspec) to see the full lisr of technologies used
 
 ## Installation
 
